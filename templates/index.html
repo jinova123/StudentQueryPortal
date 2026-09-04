@@ -27,24 +27,36 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 25px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
             font-size: 22px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .logo span {
             color: #4f46e5;
         }
 
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
         .nav-buttons a {
             text-decoration: none;
-            margin-left: 15px;
             padding: 10px 18px;
             border-radius: 8px;
             font-weight: 600;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .student-btn {
@@ -55,6 +67,7 @@
         .admin-btn {
             border: 1px solid #4f46e5;
             color: #4f46e5;
+            background: white;
         }
 
         /* ================= HERO ================= */
@@ -70,6 +83,7 @@
 
         .hero-content {
             max-width: 850px;
+            width: 100%;
         }
 
         .badge {
@@ -291,38 +305,171 @@
             color: #6b7280;
         }
 
+        /* ================= TABLET ================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                padding: 16px 5%;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .nav-buttons {
+                gap: 10px;
+            }
+
+            .nav-buttons a {
+                padding: 9px 13px;
+                font-size: 14px;
+            }
+        }
+
         /* ================= MOBILE ================= */
 
         @media (max-width: 700px) {
 
+            nav {
+                width: 100%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 18px 12px 20px;
+                gap: 15px;
+            }
+
+            .logo {
+                width: 100%;
+                font-size: 20px;
+                line-height: 1.3;
+                text-align: center;
+                white-space: normal;
+                display: block;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                max-width: 380px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .nav-buttons a {
+                width: 100%;
+                min-width: 0;
+                padding: 11px 8px;
+                font-size: 13px;
+                text-align: center;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 45px 18px 35px;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .badge {
+                font-size: 12px;
+                padding: 7px 14px;
+                margin-bottom: 18px;
+            }
+
             h1 {
-                font-size: 38px;
+                font-size: 36px;
+                line-height: 1.18;
+                margin-bottom: 18px;
             }
 
             .description {
                 font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 28px;
             }
 
-            nav {
-                padding: 15px 5%;
+            .main-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
             }
 
-            .logo {
-                font-size: 17px;
+            .main-buttons a {
+                width: 100%;
+                max-width: 300px;
+                padding: 13px 20px;
+                font-size: 15px;
             }
 
-            .nav-buttons a {
-                padding: 8px 10px;
-                font-size: 13px;
+            .features {
+                gap: 14px;
+                margin-top: 40px;
             }
 
             .feature {
-                width: 160px;
+                width: calc(50% - 7px);
+                min-height: 150px;
+                padding: 22px 14px;
+            }
+
+            .feature h3 {
+                font-size: 15px;
+            }
+
+            .feature p {
+                font-size: 12px;
+            }
+        }
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media (max-width: 400px) {
+
+            nav {
+                padding: 16px 10px 18px;
+                gap: 14px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-buttons {
+                max-width: 340px;
+                gap: 9px;
+            }
+
+            .nav-buttons a {
+                width: 100%;
+                min-width: 0;
+                padding: 10px 5px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 40px 15px 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .feature {
+                width: 100%;
+                min-height: auto;
             }
         }
     </style>
 </head>
-
 
 <body>
 
@@ -336,13 +483,13 @@
 
         <div class="nav-buttons">
 
-           <a href="/student-login" class="student-btn">
-    Student Login
-</a>
+            <a href="/student-login" class="student-btn">
+                Student Login
+            </a>
 
             <a href="/admin-login" class="admin-btn">
-    Admin Login
-</a>
+                Admin Login
+            </a>
 
         </div>
 
@@ -377,7 +524,7 @@
 
             <div class="main-buttons">
 
-                <a href="#" class="raise-btn">
+                <a href="/student-login" class="raise-btn">
 
                     <span class="plus-icon"></span>
 
@@ -386,7 +533,7 @@
                 </a>
 
 
-                <a href="#" class="track-btn">
+                <a href="/student-login" class="track-btn">
 
                     Track My Query
 
@@ -398,7 +545,6 @@
             <!-- ================= FEATURES ================= -->
 
             <div class="features">
-
 
                 <!-- TICKET TRACKING -->
 
@@ -474,7 +620,6 @@
                     </p>
 
                 </div>
-
 
             </div>
 

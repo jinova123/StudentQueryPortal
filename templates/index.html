@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>24/7 Student Query Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            margin-left: 15px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .student-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .admin-btn {
+            border: 1px solid #4f46e5;
+            color: #4f46e5;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 52px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #4f46e5;
+        }
+
+        .description {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #6b7280;
+            margin-bottom: 35px;
+        }
+
+        /* ================= MAIN BUTTONS ================= */
+
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .main-buttons a {
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            transition: all 0.2s ease;
+        }
+
+        /* RAISE COMPLAINT BUTTON */
+
+        .raise-btn {
+            background: #4f46e5;
+            color: white;
+
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.20);
+        }
+
+        .raise-btn:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+        }
+
+        /* PROFESSIONAL PLUS ICON */
+
+        .plus-icon {
+            width: 22px;
+            height: 22px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.18);
+
+            position: relative;
+
+            display: inline-block;
+
+            flex-shrink: 0;
+        }
+
+        .plus-icon::before,
+        .plus-icon::after {
+            content: "";
+
+            position: absolute;
+
+            background: #ffffff;
+
+            border-radius: 2px;
+        }
+
+        .plus-icon::before {
+            width: 10px;
+            height: 2px;
+
+            top: 10px;
+            left: 6px;
+        }
+
+        .plus-icon::after {
+            width: 2px;
+            height: 10px;
+
+            top: 6px;
+            left: 10px;
+        }
+
+        /* TRACK BUTTON */
+
+        .track-btn {
+            background: white;
+            color: #4f46e5;
+            border: 1px solid #4f46e5;
+        }
+
+        .track-btn:hover {
+            background: #f5f3ff;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 55px;
+        }
+
+        .feature {
+            background: white;
+
+            padding: 25px 20px;
+
+            width: 190px;
+            min-height: 145px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+            border: 1px solid #eef0f5;
+
+            transition: all 0.2s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        /* FEATURE ICON */
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+
+            margin: 0 auto 14px;
+
+            border-radius: 9px;
+
+            background: #eef2ff;
+
+            color: #4f46e5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        /* SMART ROUTING ICON */
+
+        .routing-icon {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* COMMUNICATION ICON */
+
+        .communication-icon {
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        /* TICKET ICON */
+
+        .ticket-icon {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* CHECK ICON */
+
+        .check-icon {
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #6b7280;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            h1 {
+                font-size: 38px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .nav-buttons a {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            .feature {
+                width: 160px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            <span>24/7</span> Student Query Portal
+        </div>
+
+        <div class="nav-buttons">
+
+           <a href="/student-login" class="student-btn">
+    Student Login
+</a>
+
+            <a href="/admin-login" class="admin-btn">
+    Admin Login
+</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                AVAILABLE 24/7
+            </div>
+
+
+            <h1>
+                Your Concern.<br>
+                <span>Our Response.</span>
+            </h1>
+
+
+            <p class="description">
+                Raise your queries and complaints anytime.
+                Track their progress, communicate with the
+                concerned department, and receive timely resolutions.
+            </p>
+
+
+            <!-- MAIN ACTION BUTTONS -->
+
+            <div class="main-buttons">
+
+                <a href="#" class="raise-btn">
+
+                    <span class="plus-icon"></span>
+
+                    Raise Your Complaint
+
+                </a>
+
+
+                <a href="#" class="track-btn">
+
+                    Track My Query
+
+                </a>
+
+            </div>
+
+
+            <!-- ================= FEATURES ================= -->
+
+            <div class="features">
+
+
+                <!-- TICKET TRACKING -->
+
+                <div class="feature">
+
+                    <div class="feature-icon ticket-icon">
+                        #
+                    </div>
+
+                    <h3>
+                        Ticket Tracking
+                    </h3>
+
+                    <p>
+                        Track every complaint using a unique Ticket ID.
+                    </p>
+
+                </div>
+
+
+                <!-- SMART ROUTING -->
+
+                <div class="feature">
+
+                    <div class="feature-icon routing-icon">
+                        ➜
+                    </div>
+
+                    <h3>
+                        Smart Routing
+                    </h3>
+
+                    <p>
+                        Complaints are directed to the appropriate department.
+                    </p>
+
+                </div>
+
+
+                <!-- COMMUNICATION -->
+
+                <div class="feature">
+
+                    <div class="feature-icon communication-icon">
+                        •••
+                    </div>
+
+                    <h3>
+                        Direct Communication
+                    </h3>
+
+                    <p>
+                        Communicate directly with the concerned administrator.
+                    </p>
+
+                </div>
+
+
+                <!-- UPDATES -->
+
+                <div class="feature">
+
+                    <div class="feature-icon check-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Real-Time Updates
+                    </h3>
+
+                    <p>
+                        Receive updates whenever your complaint status changes.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>

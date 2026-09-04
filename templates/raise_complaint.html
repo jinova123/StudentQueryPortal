@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Raise Your Complaint | 24/7 Student Query Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f6f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+           ========================= */
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-name {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .dashboard-btn {
+            text-decoration: none;
+            color: #4f46e5;
+            background: #ffffff;
+            border: 1px solid #4f46e5;
+            border-radius: 8px;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .dashboard-btn:hover {
+            background: #4f46e5;
+            color: #ffffff;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+           ========================= */
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 25px 65px;
+        }
+
+        /* =========================
+           PAGE HEADER
+           ========================= */
+
+        .page-header {
+            margin-bottom: 27px;
+        }
+
+        .page-header h1 {
+            color: #111827;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FLASH MESSAGES
+           ========================= */
+
+        .flash-container {
+            margin-bottom: 20px;
+        }
+
+        .flash-message {
+            background: #fff5f5;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+            padding: 13px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .flash-message.success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            border-left-color: #22c55e;
+            color: #15803d;
+        }
+
+        /* =========================
+           FORM CARD
+           ========================= */
+
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.035);
+        }
+
+        /* =========================
+           FORM SECTION
+           ========================= */
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #111827;
+            font-size: 17px;
+            font-weight: 700;
+            padding-bottom: 13px;
+            margin-bottom: 21px;
+            border-bottom: 1px solid #eef0f4;
+        }
+
+        /* =========================
+           FORM GRID
+           ========================= */
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #374151;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        /* =========================
+           INPUTS
+           ========================= */
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #d9dde5;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        input,
+        select {
+            height: 46px;
+            padding: 0 13px;
+        }
+
+        textarea {
+            min-height: 155px;
+            padding: 13px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #a1a7b3;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4f46e5;
+            box-shadow:
+                0 0 0 3px rgba(79, 70, 229, 0.09);
+        }
+
+        select:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        select:not(:disabled) {
+            cursor: pointer;
+        }
+
+        /* =========================
+           HELP TEXT
+           ========================= */
+
+        .help-text {
+            margin-top: 7px;
+            color: #9ca3af;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .priority-note {
+            margin-top: 7px;
+            color: #9ca3af;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           SUBMIT SECTION
+           ========================= */
+
+        .submit-section {
+            border-top: 1px solid #eef0f4;
+            padding-top: 24px;
+            margin-top: 4px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+            box-shadow:
+                0 5px 14px rgba(79, 70, 229, 0.20);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* =========================
+           INFORMATION NOTICE
+           ========================= */
+
+        .notice {
+            margin-top: 17px;
+            padding: 14px 16px;
+            background: #f8f7ff;
+            border: 1px solid #e0ddff;
+            border-radius: 8px;
+            color: #6b7280;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .notice strong {
+            color: #4f46e5;
+        }
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: auto;
+                min-height: 70px;
+                padding: 14px 5%;
+            }
+
+            .student-name {
+                display: none;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .dashboard-btn {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .main-container {
+                padding: 30px 18px 50px;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .navbar {
+                padding: 13px 16px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .main-container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .form-card {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>24/7</span> Student Query Portal
+        </div>
+
+        <div class="nav-right">
+
+            <div class="student-name">
+                {{ session.get("user_name", "Student") }}
+            </div>
+
+            <a
+                href="{{ url_for('student_dashboard') }}"
+                class="dashboard-btn"
+            >
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+
+    <main class="main-container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <h1>
+                Raise Your Complaint
+            </h1>
+
+            <p>
+                Submit your complaint or concern by selecting
+                the appropriate department and category.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             FLASH MESSAGES
+             ========================= -->
+
+        {% with messages = get_flashed_messages(category_filter=["complaint_error"], with_categories=true) %}
+    {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+        <!-- =========================
+             FORM CARD
+             ========================= -->
+
+        <div class="form-card">
+
+            <form
+                method="POST"
+                action="{{ url_for('raise_complaint') }}"
+            >
+
+                <!-- =========================
+                     COMPLAINT CLASSIFICATION
+                     ========================= -->
+
+                <div class="form-section">
+
+                    <div class="section-title">
+                        Complaint Classification
+                    </div>
+
+                    <div class="form-row">
+
+                        <!-- DEPARTMENT -->
+
+                        <div class="form-group">
+
+                            <label for="department">
+
+                                Concerned Department
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <select
+                                id="department"
+                                name="department_id"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Department
+                                </option>
+
+                                {% for department in departments %}
+
+                                    <option value="{{ department.id }}">
+                                        {{ department.name }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                            <div class="help-text">
+                                Select the department responsible
+                                for your concern.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="category">
+
+                                Category
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <select
+                                id="category"
+                                name="category"
+                                required
+                                disabled
+                            >
+
+                                <option value="">
+                                    Select Department First
+                                </option>
+
+                            </select>
+
+                            <div class="help-text">
+                                Categories will appear based on
+                                the selected department.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     COMPLAINT DETAILS
+                     ========================= -->
+
+                <div class="form-section">
+
+                    <div class="section-title">
+                        Complaint Details
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="form-group">
+
+                        <label for="subject">
+
+                            Subject
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            placeholder="Enter a short subject for your complaint"
+                            maxlength="200"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+
+                            Description
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Describe your complaint clearly with all relevant details..."
+                            required
+                        ></textarea>
+
+                        <div class="help-text">
+                            Please provide enough information to help
+                            the concerned administrator understand and
+                            resolve your complaint.
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRIORITY -->
+
+                    <div class="form-group">
+
+                        <label for="priority">
+                            Priority
+                        </label>
+
+                        <select
+                            id="priority"
+                            name="priority"
+                        >
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Normal" selected>
+                                Normal
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Urgent">
+                                Urgent
+                            </option>
+
+                        </select>
+
+                        <div class="priority-note">
+                            Select Urgent only when the issue
+                            requires immediate attention.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     SUBMIT
+                     ========================= -->
+
+                <div class="submit-section">
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                    >
+                        Submit Complaint
+                    </button>
+
+                    <div class="notice">
+
+                        <strong>Important:</strong>
+
+                        Once submitted, your complaint will receive
+                        a unique ticket ID. You can use this ticket
+                        ID to track your complaint status and view
+                        responses from the administrator.
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         CATEGORY JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+        const categoryOptions = {
+
+            "Academic": [
+                "Attendance",
+                "Faculty",
+                "Timetable",
+                "Course Registration",
+                "Study Materials",
+                "Classroom"
+            ],
+
+            "Examination Cell": [
+                "Exam Schedule",
+                "Hall Ticket",
+                "Internal Marks",
+                "Results",
+                "Revaluation",
+                "Supplementary Exam"
+            ],
+
+            "Accounts": [
+                "Fee Payment",
+                "Fee Receipt",
+                "Refund",
+                "Scholarship",
+                "Fine",
+                "Payment Issue"
+            ],
+
+            "Hostel": [
+                "Room Allocation",
+                "Mess",
+                "Maintenance",
+                "Water Supply",
+                "Electricity",
+                "Hostel Rules"
+            ],
+
+            "Transport": [
+                "Bus Route",
+                "Bus Timing",
+                "Bus Pass",
+                "Driver / Conductor",
+                "Transport Fee"
+            ],
+
+            "IT Support": [
+                "Wi-Fi",
+                "Student Portal",
+                "Login Issue",
+                "Email Account",
+                "Software",
+                "Computer / Lab"
+            ],
+
+            "Library": [
+                "Book Issue",
+                "Book Return",
+                "Lost Book",
+                "Library Access",
+                "E-Resources"
+            ],
+
+            "Placement": [
+                "Placement Registration",
+                "Company Visit",
+                "Aptitude Test",
+                "Interview",
+                "Internship"
+            ],
+
+            "Administration": [
+                "ID Card",
+                "Certificates",
+                "Documents",
+                "Campus Services",
+                "General Administration"
+            ],
+
+            "Student Clubs": [
+                "Compile Crew",
+                "Harmony",
+                "Wisdom",
+                "EngageX",
+                "VistaraX"
+            ]
+
+        };
+
+
+        const departmentSelect =
+            document.getElementById("department");
+
+        const categorySelect =
+            document.getElementById("category");
+
+
+        departmentSelect.addEventListener(
+            "change",
+            function () {
+
+                const selectedOption =
+                    departmentSelect.options[
+                        departmentSelect.selectedIndex
+                    ];
+
+                const departmentName =
+                    selectedOption.text.trim();
+
+                categorySelect.innerHTML = "";
+
+
+                /* No department selected */
+
+                if (!departmentSelect.value) {
+
+                    categorySelect.disabled = true;
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = "";
+
+                    option.textContent =
+                        "Select Department First";
+
+                    categorySelect.appendChild(option);
+
+                    return;
+                }
+
+
+                /* Get categories */
+
+                const categories =
+                    categoryOptions[departmentName] || [];
+
+                categorySelect.disabled = false;
+
+
+                /* Default option */
+
+                const defaultOption =
+                    document.createElement("option");
+
+                defaultOption.value = "";
+
+                defaultOption.textContent =
+                    "Select Category";
+
+                categorySelect.appendChild(
+                    defaultOption
+                );
+
+
+                /* Add categories */
+
+                categories.forEach(
+                    function (category) {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value = category;
+
+                        option.textContent = category;
+
+                        categorySelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

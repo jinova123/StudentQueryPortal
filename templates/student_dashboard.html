@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | 24/7 Query Portal</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f6f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================
+           NAVBAR
+           ========================= */
+
+        nav {
+            height: 70px;
+            background: #ffffff;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-name {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 6px;
+        }
+
+        .notification-link {
+            text-decoration: none;
+            color: #374151;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .notification-link:hover {
+            border-color: #4f46e5;
+            color: #4f46e5;
+            background: #f8f7ff;
+        }
+
+        .notification-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            margin-left: 5px;
+            border-radius: 20px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #4f46e5;
+            border: 1px solid #4f46e5;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .logout:hover {
+            background: #4f46e5;
+            color: #ffffff;
+        }
+
+        /* =========================
+           MAIN
+           ========================= */
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 42px 25px 65px;
+        }
+
+        /* =========================
+           WELCOME SECTION
+           ========================= */
+
+        .welcome {
+            margin-bottom: 28px;
+        }
+
+        .welcome h1 {
+            color: #111827;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           STATISTICS
+           ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 23px 24px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+            overflow: hidden;
+        }
+
+        .stat::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #4f46e5;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stat h2 {
+            color: #111827;
+            font-size: 30px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-description {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        /* =========================
+           NOTIFICATION SECTION
+           ========================= */
+
+        .notification-panel {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px 26px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+        }
+
+        .notification-content h2 {
+            color: #111827;
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .notification-content p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .notification-status {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .has-notifications {
+            color: #4f46e5;
+        }
+
+        .no-notifications {
+            color: #6b7280;
+        }
+
+        .notification-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #4f46e5;
+            color: #ffffff;
+            padding: 11px 19px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .notification-button:hover {
+            background: #4338ca;
+        }
+
+        /* =========================
+           RAISE COMPLAINT
+           ========================= */
+
+        .actions {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 27px;
+            margin-bottom: 28px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+        }
+
+        .actions h2 {
+            color: #111827;
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .actions p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .raise-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            background: #4f46e5;
+            color: #ffffff;
+            padding: 11px 19px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .raise-btn:hover {
+            background: #4338ca;
+        }
+
+        .plus {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .plus::before,
+        .plus::after {
+            content: "";
+            position: absolute;
+            background: #ffffff;
+            border-radius: 2px;
+        }
+
+        .plus::before {
+            width: 8px;
+            height: 2px;
+            left: 5px;
+            top: 8px;
+        }
+
+        .plus::after {
+            width: 2px;
+            height: 8px;
+            left: 8px;
+            top: 5px;
+        }
+
+        /* =========================
+           COMPLAINT HISTORY
+           ========================= */
+
+        .history {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 27px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+        }
+
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .history h2 {
+            color: #111827;
+            font-size: 19px;
+        }
+
+        .history-count {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* =========================
+           COMPLAINT ITEM
+           ========================= */
+
+        .query-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 14px;
+            transition: 0.2s ease;
+        }
+
+        .query-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .query-item:hover {
+            border-color: #c7d2fe;
+            box-shadow: 0 5px 16px rgba(0, 0, 0, 0.055);
+            transform: translateY(-1px);
+        }
+
+        .query-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .query-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .ticket {
+            color: #4f46e5;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 7px;
+        }
+
+        .query-subject {
+            color: #1f2937;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           STATUS
+           ========================= */
+
+        .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 11px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .status-submitted {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .status-assigned {
+            background: #eef2ff;
+            color: #4338ca;
+        }
+
+        .status-review {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .status-progress {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .status-resolved {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        /* =========================
+           QUERY FOOTER
+           ========================= */
+
+        .query-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding-top: 13px;
+            border-top: 1px solid #f0f1f5;
+        }
+
+        .query-date {
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        .view-query {
+            display: inline-block;
+            color: #4f46e5;
+            background: #ffffff;
+            border: 1px solid #4f46e5;
+            border-radius: 7px;
+            padding: 7px 13px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .query-item:hover .view-query {
+            background: #4f46e5;
+            color: #ffffff;
+        }
+
+        /* =========================
+           EMPTY STATE
+           ========================= */
+
+        .empty {
+            padding: 45px 20px;
+            text-align: center;
+            color: #6b7280;
+            border: 1px dashed #d1d5db;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                height: auto;
+                padding: 15px 5%;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .student-name {
+                display: none;
+            }
+
+            .nav-right {
+                gap: 6px;
+            }
+
+            .notification-link {
+                padding: 8px 9px;
+            }
+
+            .logout {
+                padding: 8px 10px;
+            }
+
+            .container {
+                padding: 30px 18px 45px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .notification-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .notification-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .query-top {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .query-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .view-query {
+                width: 100%;
+                text-align: center;
+            }
+
+            .history,
+            .actions {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            <span>24/7</span> Student Query Portal
+        </div>
+
+        <div class="nav-right">
+
+            <div class="student-name">
+                {{ student.name }}
+            </div>
+
+            <a
+                href="{{ url_for('notifications') }}"
+                class="notification-link">
+
+                Notifications
+
+                {% if unread_notifications > 0 %}
+
+                    <span class="notification-count">
+                        {{ unread_notifications }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+            <a
+                href="{{ url_for('student_logout') }}"
+                class="logout">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+
+    <main class="container">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <h1>
+                Welcome, {{ student.name }}
+            </h1>
+
+            <p>
+                Manage your queries, track complaints,
+                and stay updated on their progress.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             STATISTICS
+             ========================= -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Active Queries
+                </div>
+
+                <h2>
+                    {{ active_count }}
+                </h2>
+
+                <div class="stat-description">
+                    Currently being handled
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Pending Queries
+                </div>
+
+                <h2>
+                    {{ pending_count }}
+                </h2>
+
+                <div class="stat-description">
+                    Awaiting resolution
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Resolved Queries
+                </div>
+
+                <h2>
+                    {{ resolved_count }}
+                </h2>
+
+                <div class="stat-description">
+                    Successfully resolved
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             NOTIFICATIONS
+             ========================= -->
+
+        <section class="notification-panel">
+
+            <div class="notification-content">
+
+                <h2>
+                    Notifications
+                </h2>
+
+                <p>
+                    Stay updated with administrator replies,
+                    status changes, and important information
+                    about your complaints.
+                </p>
+
+                {% if unread_notifications > 0 %}
+
+                    <div class="notification-status has-notifications">
+
+                        {{ unread_notifications }}
+                        unread notification{% if unread_notifications != 1 %}s{% endif %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="notification-status no-notifications">
+
+                        No new notifications
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <a
+                href="{{ url_for('notifications') }}"
+                class="notification-button">
+
+                View Notifications
+
+            </a>
+
+        </section>
+
+
+        <!-- =========================
+             RAISE COMPLAINT
+             ========================= -->
+
+        <section class="actions">
+
+            <h2>
+                Need Assistance?
+            </h2>
+
+            <p>
+                Have an issue or concern? Raise a new
+                complaint and we'll connect you with
+                the appropriate department.
+            </p>
+
+            <a
+                href="{{ url_for('raise_complaint') }}"
+                class="raise-btn">
+
+                <span class="plus"></span>
+
+                Raise Your Complaint
+
+            </a>
+
+        </section>
+
+
+        <!-- =========================
+             MY COMPLAINTS
+             ========================= -->
+
+        <section class="history">
+
+            <div class="history-header">
+
+                <h2>
+                    My Complaints
+                </h2>
+
+                {% if queries %}
+
+                    <div class="history-count">
+
+                        {{ queries|length }}
+                        complaint{% if queries|length != 1 %}s{% endif %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            {% if queries %}
+
+                {% for query in queries %}
+
+                    <div class="query-item">
+
+                        <a
+                            href="{{ url_for('track_query', ticket_id=query.ticket_id) }}"
+                            class="query-link">
+
+
+                            <div class="query-top">
+
+                                <div>
+
+                                    <div class="ticket">
+                                        {{ query.ticket_id }}
+                                    </div>
+
+                                    <div class="query-subject">
+                                        {{ query.subject | trim }}
+                                    </div>
+
+                                </div>
+
+
+                                {% if query.status == "Submitted" %}
+
+                                    <div class="status status-submitted">
+                                        Submitted
+                                    </div>
+
+                                {% elif query.status == "Assigned" %}
+
+                                    <div class="status status-assigned">
+                                        Assigned
+                                    </div>
+
+                                {% elif query.status == "Under Review" %}
+
+                                    <div class="status status-review">
+                                        Under Review
+                                    </div>
+
+                                {% elif query.status == "In Progress" %}
+
+                                    <div class="status status-progress">
+                                        In Progress
+                                    </div>
+
+                                {% elif query.status == "Resolved" %}
+
+                                    <div class="status status-resolved">
+                                        Resolved
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="status">
+                                        {{ query.status }}
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="query-footer">
+
+                                <div class="query-date">
+
+                                    Submitted:
+
+                                    {{ query.created_at.strftime('%d %b %Y, %I:%M %p') }}
+
+                                </div>
+
+
+                                <div class="view-query">
+                                    View Complaint
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty">
+
+                    You haven't raised any complaints yet.
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

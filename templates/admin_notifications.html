@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Notifications | 24/7 Student Query Portal</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #e7e9ef;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 48px;
+        }
+
+
+        .logo {
+            font-size: 21px;
+
+            font-weight: 700;
+
+            color: #172033;
+
+            white-space: nowrap;
+        }
+
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+
+        .admin-section {
+            display: flex;
+
+            align-items: center;
+
+            gap: 26px;
+        }
+
+
+        /* ================= ADMIN NAVIGATION ================= */
+
+        .admin-name,
+        .dashboard-link,
+        .logout {
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            white-space: nowrap;
+        }
+
+
+        .admin-name {
+            color: #172033;
+
+            display: inline-flex;
+
+            align-items: center;
+        }
+
+
+        .dashboard-link {
+            color: #172033;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 8px 0;
+        }
+
+
+        .logout {
+            color: #172033;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+        }
+
+
+        .dashboard-link:hover,
+        .logout:hover {
+            color: #4f46e5;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            width: 100%;
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 38px 28px 60px;
+        }
+
+
+        .page-title {
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color: #172033;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-subtitle {
+            font-size: 14px;
+
+            color: #64748b;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* ================= NOTIFICATIONS CARD ================= */
+
+        .notifications-card {
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e7ee;
+
+            border-radius: 14px;
+
+            padding: 26px;
+
+            box-shadow:
+                0 3px 14px
+                rgba(15, 23, 42, 0.04);
+        }
+
+
+        .notification-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+
+        /* ================= NOTIFICATION ITEM ================= */
+
+        .notification-item {
+            width: 100%;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 11px;
+
+            padding: 20px;
+
+            background: #ffffff;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .notification-item:hover {
+            border-color: #d9d2ee;
+
+            box-shadow:
+                0 4px 14px
+                rgba(15, 23, 42, 0.045);
+        }
+
+
+        .notification-message {
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #172033;
+
+            line-height: 1.6;
+
+            margin-bottom: 8px;
+        }
+
+
+        .notification-time {
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        .notification-action {
+            margin-top: 15px;
+        }
+
+
+        /* ================= VIEW COMPLAINT BUTTON ================= */
+
+        .view-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 125px;
+
+            height: 36px;
+
+            padding: 0 16px;
+
+            border: 1px solid #6d3fc0;
+
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            color: #6d3fc0;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition:
+                background 0.2s,
+                color 0.2s,
+                border-color 0.2s;
+        }
+
+
+        .view-button:hover {
+            background: #6d3fc0;
+
+            border-color: #6d3fc0;
+
+            color: #ffffff;
+        }
+
+
+        /* ================= EMPTY STATE ================= */
+
+        .empty {
+            text-align: center;
+
+            padding: 48px 20px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: auto;
+
+                padding: 18px 20px;
+
+                gap: 20px;
+            }
+
+
+            .logo {
+                font-size: 19px;
+            }
+
+
+            .admin-section {
+                gap: 15px;
+
+                flex-wrap: wrap;
+
+                justify-content: flex-end;
+            }
+
+
+            .admin-name,
+            .dashboard-link,
+            .logout {
+                font-size: 13px;
+            }
+
+
+            .container {
+                padding: 26px 16px 45px;
+            }
+
+
+            .page-title {
+                font-size: 26px;
+            }
+
+
+            .notifications-card {
+                padding: 21px 18px;
+            }
+
+
+            .notification-item {
+                padding: 17px;
+            }
+
+
+            .view-button {
+                width: 100%;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .navbar {
+                padding: 17px 16px;
+            }
+
+
+            .logo {
+                font-size: 17px;
+            }
+
+
+            .admin-section {
+                gap: 12px;
+            }
+
+
+            .admin-name,
+            .dashboard-link,
+            .logout {
+                font-size: 12px;
+            }
+
+
+            .page-title {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>24/7</span> Student Query Portal
+        </div>
+
+
+        <div class="admin-section">
+
+            <span class="admin-name">
+                Admin
+            </span>
+
+
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="dashboard-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('admin_logout') }}"
+                class="logout"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <h1 class="page-title">
+            Notifications
+        </h1>
+
+
+        <p class="page-subtitle">
+            View recent notifications about newly submitted student complaints.
+        </p>
+
+
+        <!-- ================= NOTIFICATIONS ================= -->
+
+        <section class="notifications-card">
+
+            <div class="notification-list">
+
+
+                {% if notifications %}
+
+
+                    {% for notification in notifications %}
+
+
+                        <div class="notification-item">
+
+
+                            <div class="notification-message">
+
+                                {{ notification.message }}
+
+                            </div>
+
+
+                            <div class="notification-time">
+
+                                {{ notification.created_at.strftime(
+                                    '%d %b %Y, %I:%M %p'
+                                ) }}
+
+                            </div>
+
+
+                            {% if notification.id in notification_tickets %}
+
+
+                                <div class="notification-action">
+
+                                    <a
+                                        href="{{ url_for(
+                                            'admin_view_complaint',
+                                            ticket_id=notification_tickets[
+                                                notification.id
+                                            ]
+                                        ) }}"
+                                        class="view-button"
+                                    >
+                                        View Complaint
+                                    </a>
+
+                                </div>
+
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="empty">
+
+                        No notifications available.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

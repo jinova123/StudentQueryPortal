@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Track Complaint - 24/7 Student Query Portal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            width: 100%;
+            min-height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo-247 {
+            color: #4f46e5;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-name {
+            color: #172033;
+            font-size: 21px;
+            font-weight: 700;
+            margin-left: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .student-name {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .notification-btn {
+            position: relative;
+            color: #263449;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .notification-btn:hover {
+            color: #4f46e5;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -10px;
+            right: -14px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 10px;
+            background: #4f46e5;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            min-height: 38px;
+            padding: 0 17px;
+            border-radius: 7px;
+            background: #4f46e5;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 35px 25px 60px;
+        }
+
+        /* =========================================================
+           BACK BUTTON
+        ========================================================= */
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            margin-bottom: 22px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1px solid #e1e5ec;
+            border-radius: 8px;
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .back-link:hover {
+            border-color: #4f46e5;
+            background: #f7f7ff;
+            color: #4338ca;
+        }
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================= */
+
+        .page-title {
+            color: #111827;
+            font-size: 30px;
+            font-weight: 750;
+            line-height: 1.25;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .page-description {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        /* =========================================================
+           FLASH MESSAGES
+        ========================================================= */
+
+        .flash-container {
+            width: 100%;
+            margin-bottom: 22px;
+        }
+
+        .flash-message {
+            width: 100%;
+            padding: 14px 17px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+        }
+
+        .flash-message:last-child {
+            margin-bottom: 0;
+        }
+
+        .flash-success {
+            background: #ecfdf3;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .flash-error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border-color: #fecaca;
+        }
+
+        /* =========================================================
+           COMMON CARD
+        ========================================================= */
+
+        .card,
+        .journey-card,
+        .feedback-card {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow:
+                0 2px 8px rgba(31, 41, 55, 0.035);
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .card {
+            padding: 28px;
+        }
+
+        /* =========================================================
+           COMPLAINT SUMMARY
+        ========================================================= */
+
+        .complaint-header {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .ticket-id {
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .complaint-title {
+            color: #111827;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* =========================================================
+           STATUS BADGES
+        ========================================================= */
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status-submitted {
+            background: #eef2ff;
+            color: #4f46e5;
+            border: 1px solid #e0e7ff;
+        }
+
+        .status-assigned {
+            background: #eaf2ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+        }
+
+        .status-under-review {
+            background: #fff7df;
+            color: #a16207;
+            border: 1px solid #fde68a;
+        }
+
+        .status-in-progress {
+            background: #eaf8ff;
+            color: #0369a1;
+            border: 1px solid #d7f0ff;
+        }
+
+        .status-resolved {
+            background: #ecfdf3;
+            color: #15803d;
+            border: 1px solid #d1fae5;
+        }
+
+        /* =========================================================
+           DETAILS GRID
+        ========================================================= */
+
+        .details-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .detail-box {
+            width: 100%;
+            min-width: 0;
+            background: #f9fafb;
+            border: 1px solid #edf0f4;
+            border-radius: 9px;
+            padding: 16px;
+        }
+
+        .detail-label {
+            display: block;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 7px;
+            line-height: 1.45;
+        }
+
+        .detail-value {
+            display: block;
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* =========================================================
+           SECTION TITLE
+        ========================================================= */
+
+        .section-title {
+            color: #111827;
+            font-size: 19px;
+            font-weight: 750;
+            line-height: 1.3;
+            margin-bottom: 22px;
+        }
+
+        /* =========================================================
+           COMPLAINT DETAILS
+        ========================================================= */
+
+        .complaint-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .complaint-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .complaint-label {
+            display: block;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 7px;
+            line-height: 1.45;
+        }
+
+        .complaint-value {
+            display: block;
+            width: 100%;
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.65;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* =========================================================
+           COMPLAINT JOURNEY
+        ========================================================= */
+
+        .journey-card {
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .journey-title {
+            color: #111827;
+            font-size: 19px;
+            font-weight: 750;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .journey-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .journey-scroll {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 12px 5px 18px;
+            scrollbar-width: thin;
+        }
+
+        .journey-track {
+            width: 100%;
+            min-width: 850px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .journey-item {
+            width: 145px;
+            flex-shrink: 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .journey-circle {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #9ca3af;
+            border: 2px solid #d1d5db;
+            font-size: 14px;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .journey-item.completed .journey-circle {
+            background: #4f46e5;
+            color: #ffffff;
+            border-color: #4f46e5;
+            box-shadow:
+                0 4px 10px rgba(79, 70, 229, 0.18);
+        }
+
+        .journey-item.current .journey-circle {
+            background: #ffffff;
+            border: 3px solid #4f46e5;
+            box-shadow:
+                0 0 0 5px #eef2ff;
+            color: #4f46e5;
+        }
+
+        .journey-item.current .journey-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #4f46e5;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .journey-name {
+            color: #9ca3af;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .journey-item.completed .journey-name {
+            color: #4f46e5;
+        }
+
+        .journey-item.current .journey-name {
+            color: #4f46e5;
+            font-weight: 700;
+        }
+
+        .journey-line {
+            flex: 1;
+            min-width: 45px;
+            max-width: 95px;
+            height: 3px;
+            background: #e5e7eb;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-line.completed {
+            background: #4f46e5;
+        }
+
+        /* =========================================================
+           CURRENT STATUS
+        ========================================================= */
+
+        .current-status-box {
+            width: 100%;
+            margin-top: 25px;
+            padding: 20px 22px;
+            background: #f7f7ff;
+            border: 1px solid #dfe3ff;
+            border-radius: 10px;
+        }
+
+        .current-label {
+            color: #6366f1;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 7px;
+        }
+
+        .current-status {
+            color: #3730a3;
+            font-size: 17px;
+            font-weight: 750;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .current-message {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           CONVERSATION
+        ========================================================= */
+
+        .conversation-title {
+            color: #111827;
+            font-size: 19px;
+            font-weight: 750;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            width: 100%;
+            padding: 17px 18px;
+            border-radius: 9px;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .message:last-child {
+            margin-bottom: 0;
+        }
+
+        .student-message {
+            background: #f9fafb;
+            border-left: 4px solid #9ca3af;
+        }
+
+        .admin-message {
+            background: #f5f3ff;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 9px;
+        }
+
+        .sender-name {
+            color: #374151;
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .admin-message .sender-name {
+            color: #4f46e5;
+        }
+
+        .message-time {
+            color: #9ca3af;
+            font-size: 11px;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .message-text {
+            width: 100%;
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.65;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            text-align: left;
+        }
+
+        .no-messages {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           FEEDBACK SECTION
+        ========================================================= */
+
+        .feedback-card {
+            padding: 28px;
+        }
+
+        .feedback-header {
+            margin-bottom: 20px;
+        }
+
+        .feedback-title {
+            color: #111827;
+            font-size: 19px;
+            font-weight: 750;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .feedback-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.65;
+            margin-bottom: 24px;
+        }
+
+        /* =========================================================
+           FEEDBACK LOCKED STATE
+        ========================================================= */
+
+        .feedback-locked {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .feedback-locked-title {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 750;
+            margin-bottom: 7px;
+        }
+
+        .feedback-locked-text {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           RATING
+        ========================================================= */
+
+        .rating-label {
+            display: block;
+            color: #374151;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .rating-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .rating-option {
+            position: relative;
+        }
+
+        .rating-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .rating-option label {
+            width: 48px;
+            height: 48px;
+            border: 1px solid #d9deea;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4b5563;
+            background: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .rating-option label:hover {
+            border-color: #4f46e5;
+            color: #4f46e5;
+            background: #f7f7ff;
+        }
+
+        .rating-option input:checked + label {
+            background: #4f46e5;
+            border-color: #4f46e5;
+            color: #ffffff;
+            box-shadow:
+                0 4px 10px rgba(79, 70, 229, 0.18);
+        }
+
+        /* =========================================================
+           FEEDBACK TEXTAREA
+        ========================================================= */
+
+        .feedback-textarea {
+            width: 100%;
+            min-height: 110px;
+            resize: vertical;
+            padding: 13px 14px;
+            border: 1px solid #d9deea;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .feedback-textarea:focus {
+            border-color: #4f46e5;
+            box-shadow:
+                0 0 0 3px #eef2ff;
+        }
+
+        /* =========================================================
+           SUBMIT FEEDBACK
+        ========================================================= */
+
+        .feedback-submit {
+            min-height: 42px;
+            padding: 0 21px;
+            border: 0;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .feedback-submit:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        /* =========================================================
+           SUBMITTED FEEDBACK
+        ========================================================= */
+
+        .feedback-submitted {
+            background: #f7f7ff;
+            border: 1px solid #dfe3ff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .feedback-thanks {
+            color: #15803d;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .submitted-rating-label {
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .feedback-rating {
+            color: #4f46e5;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+
+        .feedback-comment-label {
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .feedback-comment {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.65;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+        }
+
+        .no-feedback-comment {
+            color: #9ca3af;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .journey-track {
+                min-width: 800px;
+            }
+
+            .journey-item {
+                width: 135px;
+            }
+
+            .journey-line {
+                min-width: 35px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .student-name {
+                display: none;
+            }
+
+            .details-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .complaint-header {
+                flex-direction: column;
+            }
+
+            .journey-card {
+                padding: 22px 18px;
+            }
+
+            .journey-track {
+                min-width: 760px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                min-height: 72px;
+                padding: 15px 18px;
+            }
+
+            .logo-247,
+            .logo-name {
+                font-size: 17px;
+            }
+
+            .nav-right {
+                gap: 12px;
+            }
+
+            .notification-btn {
+                display: none;
+            }
+
+            .container {
+                padding: 25px 15px 45px;
+            }
+
+            .page-title {
+                font-size: 26px;
+            }
+
+            .card,
+            .journey-card,
+            .feedback-card {
+                padding: 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-title {
+                font-size: 18px;
+            }
+
+            .journey-description {
+                margin-bottom: 25px;
+            }
+
+            .current-status-box {
+                padding: 18px;
+            }
+
+            .message-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .message-time {
+                text-align: left;
+            }
+
+            .rating-options {
+                gap: 8px;
+            }
+
+            .rating-option label {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="{{ url_for('student_dashboard') }}"
+            class="logo"
+        >
+
+            <span class="logo-247">
+                24/7
+            </span>
+
+            <span class="logo-name">
+                Student Query Portal
+            </span>
+
+        </a>
+
+
+        <div class="nav-right">
+
+            <span class="student-name">
+                {{ session.get('user_name', 'Student') }}
+            </span>
+
+
+            <a
+                href="{{ url_for('notifications') }}"
+                class="notification-btn"
+            >
+
+                Notifications
+
+                {% if unread_notifications|default(0) > 0 %}
+
+                    <span class="notification-badge">
+                        {{ unread_notifications }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <a
+                href="{{ url_for('student_logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
+
+    <main class="container">
+
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('student_dashboard') }}"
+            class="back-link"
+        >
+            Back to Dashboard
+        </a>
+
+
+        <!-- PAGE HEADER -->
+
+        <h1 class="page-title">
+            Track Your Complaint
+        </h1>
+
+
+        <p class="page-description">
+            Follow the progress of your complaint from submission to resolution.
+        </p>
+
+
+        <!-- =====================================================
+             FEEDBACK FLASH MESSAGES
+        ===================================================== -->
+
+        {% with messages = get_flashed_messages(
+            category_filter=["feedback_error", "feedback_success"],
+            with_categories=true
+        ) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="flash-message
+                            {% if category == 'feedback_success' %}
+                                flash-success
+                            {% else %}
+                                flash-error
+                            {% endif %}"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =====================================================
+             COMPLAINT SUMMARY
+        ===================================================== -->
+
+        <section class="card">
+
+
+            <div class="complaint-header">
+
+
+                <div>
+
+                    <div class="ticket-id">
+                        {{ query.ticket_id }}
+                    </div>
+
+
+                    <div class="complaint-title">
+                        {{ query.subject | trim }}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    {% if query.status == 'Submitted' %}
+
+                        <span class="status-badge status-submitted">
+                            Submitted
+                        </span>
+
+                    {% elif query.status == 'Assigned' %}
+
+                        <span class="status-badge status-assigned">
+                            Assigned
+                        </span>
+
+                    {% elif query.status == 'Under Review' %}
+
+                        <span class="status-badge status-under-review">
+                            Reviewing
+                        </span>
+
+                    {% elif query.status == 'In Progress' %}
+
+                        <span class="status-badge status-in-progress">
+                            Action in Progress
+                        </span>
+
+                    {% elif query.status == 'Resolved' %}
+
+                        <span class="status-badge status-resolved">
+                            Resolved
+                        </span>
+
+                    {% else %}
+
+                        <span class="status-badge status-submitted">
+                            {{ query.status }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SUMMARY DETAILS
+            ================================================= -->
+
+            <div class="details-grid">
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Concerned Department
+                    </span>
+
+                    <span class="detail-value">
+
+                        {% if department %}
+
+                            {{ department.name }}
+
+                        {% else %}
+
+                            Not specified
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Category
+                    </span>
+
+                    <span class="detail-value">
+                        {{ query.category }}
+                    </span>
+
+                </div>
+
+
+                <!-- PRIORITY -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Priority
+                    </span>
+
+                    <span class="detail-value">
+                        {{ query.priority }}
+                    </span>
+
+                </div>
+
+
+                <!-- SUBMITTED -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Submitted On
+                    </span>
+
+                    <span class="detail-value">
+                        {{ query.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                    </span>
+
+                </div>
+
+
+                <!-- UPDATED -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Last Updated
+                    </span>
+
+                    <span class="detail-value">
+                        {{ query.updated_at.strftime('%d %b %Y, %I:%M %p') }}
+                    </span>
+
+                </div>
+
+
+                <!-- SLA -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        SLA Deadline
+                    </span>
+
+                    <span class="detail-value">
+
+                        {% if query.sla_deadline %}
+
+                            {{ query.sla_deadline.strftime('%d %b %Y, %I:%M %p') }}
+
+                        {% else %}
+
+                            Not assigned
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             COMPLAINT DETAILS
+        ===================================================== -->
+
+        <section class="card">
+
+
+            <h2 class="section-title">
+                Complaint Details
+            </h2>
+
+
+            <div class="complaint-section">
+
+
+                <div class="complaint-item">
+
+                    <span class="complaint-label">
+                        Subject
+                    </span>
+
+                    <span class="complaint-value">
+                        {{ query.subject | trim }}
+                    </span>
+
+                </div>
+
+
+                <div class="complaint-item">
+
+                    <span class="complaint-label">
+                        Description
+                    </span>
+
+                    <span class="complaint-value">
+                        {{ query.description | trim }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             YOUR COMPLAINT JOURNEY
+        ===================================================== -->
+
+        <section class="journey-card">
+
+
+            <h2 class="journey-title">
+                Your Complaint Journey
+            </h2>
+
+
+            <p class="journey-description">
+                Follow your complaint as it moves through each stage.
+            </p>
+
+
+            {% set status_steps = [
+                'Submitted',
+                'Assigned',
+                'Under Review',
+                'In Progress',
+                'Resolved'
+            ] %}
+
+
+            {% if query.status in status_steps %}
+
+                {% set current_index = status_steps.index(query.status) %}
+
+            {% else %}
+
+                {% set current_index = 0 %}
+
+            {% endif %}
+
+
+            <div class="journey-scroll">
+
+
+                <div class="journey-track">
+
+
+                    <!-- SUBMITTED -->
+
+                    <div
+                        class="journey-item
+                        {% if current_index >= 0 %}completed{% endif %}
+                        {% if current_index == 0 %}current{% endif %}"
+                    >
+
+                        <div class="journey-circle">
+
+                            {% if current_index > 0 %}
+
+                                ✓
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="journey-name">
+                            Submitted
+                        </div>
+
+                    </div>
+
+
+                    <!-- LINE -->
+
+                    <div
+                        class="journey-line
+                        {% if current_index >= 1 %}completed{% endif %}"
+                    ></div>
+
+
+                    <!-- ASSIGNED -->
+
+                    <div
+                        class="journey-item
+                        {% if current_index >= 1 %}completed{% endif %}
+                        {% if current_index == 1 %}current{% endif %}"
+                    >
+
+                        <div class="journey-circle">
+
+                            {% if current_index > 1 %}
+
+                                ✓
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="journey-name">
+                            Assigned
+                        </div>
+
+                    </div>
+
+
+                    <!-- LINE -->
+
+                    <div
+                        class="journey-line
+                        {% if current_index >= 2 %}completed{% endif %}"
+                    ></div>
+
+
+                    <!-- UNDER REVIEW -->
+
+                    <div
+                        class="journey-item
+                        {% if current_index >= 2 %}completed{% endif %}
+                        {% if current_index == 2 %}current{% endif %}"
+                    >
+
+                        <div class="journey-circle">
+
+                            {% if current_index > 2 %}
+
+                                ✓
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="journey-name">
+                            Reviewing
+                        </div>
+
+                    </div>
+
+
+                    <!-- LINE -->
+
+                    <div
+                        class="journey-line
+                        {% if current_index >= 3 %}completed{% endif %}"
+                    ></div>
+
+
+                    <!-- IN PROGRESS -->
+
+                    <div
+                        class="journey-item
+                        {% if current_index >= 3 %}completed{% endif %}
+                        {% if current_index == 3 %}current{% endif %}"
+                    >
+
+                        <div class="journey-circle">
+
+                            {% if current_index > 3 %}
+
+                                ✓
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="journey-name">
+                            Action in Progress
+                        </div>
+
+                    </div>
+
+
+                    <!-- LINE -->
+
+                    <div
+                        class="journey-line
+                        {% if current_index >= 4 %}completed{% endif %}"
+                    ></div>
+
+
+                    <!-- RESOLVED -->
+
+                    <div
+                        class="journey-item
+                        {% if current_index >= 4 %}completed{% endif %}
+                        {% if current_index == 4 %}current{% endif %}"
+                    >
+
+                        <div class="journey-circle">
+
+                            {% if current_index > 4 %}
+
+                                ✓
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="journey-name">
+                            Resolved
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 CURRENT STATUS
+            ================================================= -->
+
+            <div class="current-status-box">
+
+
+                <div class="current-label">
+                    Current Stage
+                </div>
+
+
+                <div class="current-status">
+
+                    {% if query.status == 'Submitted' %}
+
+                        Complaint Submitted
+
+                    {% elif query.status == 'Assigned' %}
+
+                        Assigned to Department
+
+                    {% elif query.status == 'Under Review' %}
+
+                        Reviewing
+
+                    {% elif query.status == 'In Progress' %}
+
+                        Action in Progress
+
+                    {% elif query.status == 'Resolved' %}
+
+                        Complaint Resolved
+
+                    {% else %}
+
+                        {{ query.status }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="current-message">
+
+                    {% if query.status == 'Submitted' %}
+
+                        Your complaint has been successfully received and is waiting to be assigned to the concerned department.
+
+                    {% elif query.status == 'Assigned' %}
+
+                        Your complaint has been assigned to the concerned department and is waiting for review.
+
+                    {% elif query.status == 'Under Review' %}
+
+                        The concerned department is currently reviewing your complaint and understanding the issue.
+
+                    {% elif query.status == 'In Progress' %}
+
+                        The concerned department is currently working on resolving your complaint.
+
+                    {% elif query.status == 'Resolved' %}
+
+                        Your complaint has been addressed and marked as resolved.
+
+                    {% else %}
+
+                        Your complaint is currently being processed.
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             CONVERSATION
+        ===================================================== -->
+
+        <section class="card">
+
+
+            <h2 class="conversation-title">
+                Conversation
+            </h2>
+
+
+            {% if messages %}
+
+
+                {% for message in messages %}
+
+
+                    {% if message.sender_id == session.get('user_id') %}
+
+
+                        <!-- STUDENT MESSAGE -->
+
+                        <div class="message student-message">
+
+
+                            <div class="message-header">
+
+                                <span class="sender-name">
+                                    You
+                                </span>
+
+                                <span class="message-time">
+                                    {{ message.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="message-text">
+                                {{ message.message | trim }}
+                            </div>
+
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <!-- ADMIN MESSAGE -->
+
+                        <div class="message admin-message">
+
+
+                            <div class="message-header">
+
+                                <span class="sender-name">
+                                    Administrator
+                                </span>
+
+                                <span class="message-time">
+                                    {{ message.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="message-text">
+                                {{ message.message | trim }}
+                            </div>
+
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <p class="no-messages">
+                    No conversation messages yet.
+                </p>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FEEDBACK AND RATING
+        ===================================================== -->
+
+        <section class="feedback-card">
+
+
+            <div class="feedback-header">
+
+                <h2 class="feedback-title">
+                    Feedback &amp; Rating
+                </h2>
+
+            </div>
+
+
+            {% if query.status == 'Resolved' %}
+
+
+                <!-- =================================================
+                     FEEDBACK AVAILABLE
+                ================================================= -->
+
+
+                {% if feedback %}
+
+
+                    <!-- FEEDBACK ALREADY SUBMITTED -->
+
+                    <div class="feedback-submitted">
+
+
+                        <div class="feedback-thanks">
+                            Thank you for sharing your feedback.
+                        </div>
+
+
+                        <div class="submitted-rating-label">
+                            Your Rating
+                        </div>
+
+
+                        <div class="feedback-rating">
+
+                            {% for number in range(1, 6) %}
+
+                                {% if number <= feedback.rating %}
+
+                                    ★
+
+                                {% else %}
+
+                                    ☆
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        {% if feedback.comment %}
+
+
+                            <div class="feedback-comment-label">
+                                Your Comment
+                            </div>
+
+
+                            <div class="feedback-comment">
+                                {{ feedback.comment | trim }}
+                            </div>
+
+
+                        {% else %}
+
+
+                            <div class="no-feedback-comment">
+                                No additional comment was provided.
+                            </div>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <!-- FEEDBACK FORM -->
+
+                    <p class="feedback-description">
+
+                        Your complaint has been resolved.
+                        Please rate the resolution and share your experience
+                        to help us improve the student support service.
+
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'submit_feedback',
+                            ticket_id=query.ticket_id
+                        ) }}"
+                    >
+
+
+                        <span class="rating-label">
+                            Rate Your Experience
+                        </span>
+
+
+                        <div class="rating-options">
+
+
+                            {% for number in range(1, 6) %}
+
+
+                                <div class="rating-option">
+
+
+                                    <input
+                                        type="radio"
+                                        id="rating-{{ number }}"
+                                        name="rating"
+                                        value="{{ number }}"
+                                        required
+                                    >
+
+
+                                    <label for="rating-{{ number }}">
+                                        {{ number }}
+                                    </label>
+
+
+                                </div>
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                        <label
+                            class="rating-label"
+                            for="feedback-comment"
+                        >
+                            Comments (Optional)
+                        </label>
+
+
+                        <textarea
+                            id="feedback-comment"
+                            name="comment"
+                            class="feedback-textarea"
+                            maxlength="1000"
+                            placeholder="Tell us about your experience with the resolution..."
+                        ></textarea>
+
+
+                        <button
+                            type="submit"
+                            class="feedback-submit"
+                        >
+                            Submit Feedback
+                        </button>
+
+
+                    </form>
+
+
+                {% endif %}
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     FEEDBACK NOT YET AVAILABLE
+                ================================================= -->
+
+
+                <p class="feedback-description">
+
+                    Feedback becomes available once your complaint has
+                    been successfully resolved.
+
+                </p>
+
+
+                <div class="feedback-locked">
+
+
+                    <div class="feedback-locked-title">
+                        Feedback is currently unavailable
+                    </div>
+
+
+                    <div class="feedback-locked-text">
+
+                        Your complaint is currently marked as
+                        <strong>{{ query.status }}</strong>.
+
+                        Once the administrator marks it as
+                        <strong>Resolved</strong>, you can return to this
+                        page and submit your rating and comments.
+
+                    </div>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

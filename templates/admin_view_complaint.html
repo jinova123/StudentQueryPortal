@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Details | 24/7 Student Query Portal</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f5f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+        width: 100%;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 0 42px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .brand {
+        font-size: 21px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.3px;
+    }
+
+    .brand-highlight {
+        color: #4f46e5;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+    }
+
+    .admin-name {
+        font-size: 14px;
+        color: #4b5563;
+        font-weight: 500;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.2s ease;
+    }
+
+    .nav-link:hover {
+        color: #2563eb;
+    }
+
+    .notification-link {
+        position: relative;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -10px;
+        right: -14px;
+        min-width: 19px;
+        height: 19px;
+        padding: 0 5px;
+        border-radius: 20px;
+        background: #dc2626;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logout-btn {
+        text-decoration: none;
+        background: #111827;
+        color: #ffffff;
+        padding: 9px 17px;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .logout-btn:hover {
+        background: #1f2937;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
+
+    .container {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 34px 25px 60px;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: #4f46e5;
+        background: #ffffff;
+        border: 1px solid #dbe3f0;
+        padding: 12px 20px;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 26px;
+        transition: 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: #4338ca;
+        border-color: #a5b4fc;
+        background: #f8faff;
+    }
+
+    .page-header {
+        margin-bottom: 28px;
+    }
+
+    .page-header h1 {
+        font-size: 28px;
+        color: #111827;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .page-header p {
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 26px;
+        margin-bottom: 22px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 22px;
+    }
+
+    /* =========================
+       COMPLAINT INFORMATION
+    ========================= */
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .info-item {
+        min-width: 0;
+    }
+
+    .info-label {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 7px;
+    }
+
+    .info-value {
+        font-size: 14px;
+        color: #111827;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    /* =========================
+       COMPLAINT DETAILS
+    ========================= */
+
+    .subject {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #4b5563;
+        white-space: pre-line;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* =========================
+       AUTOMATIC ASSIGNMENT
+    ========================= */
+
+    .assignment-card {
+        margin-top: 24px;
+    }
+
+    .assigned-info {
+        padding: 18px 20px;
+        background: #f7f9fc;
+        border: 1px solid #e4e8ef;
+        border-radius: 10px;
+    }
+
+    .field-label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #6b7280;
+    }
+
+    .assigned-info strong {
+        display: block;
+        font-size: 15px;
+        color: #1f2937;
+    }
+
+    .assignment-note {
+        margin-top: 14px;
+        font-size: 13px;
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .not-assigned {
+        padding: 18px 20px;
+        background: #fff8e8;
+        border: 1px solid #f1dfad;
+        border-radius: 10px;
+    }
+
+    .not-assigned span {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #8a6500;
+    }
+
+    .not-assigned p {
+        margin: 0;
+        font-size: 14px;
+        color: #6b7280;
+        text-align: left;
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .status-submitted {
+        background: #eff6ff;
+        color: #2563eb;
+    }
+
+    .status-assigned {
+        background: #f5f3ff;
+        color: #7c3aed;
+    }
+
+    .status-reviewing {
+        background: #fff7ed;
+        color: #ea580c;
+    }
+
+    .status-action {
+        background: #fefce8;
+        color: #ca8a04;
+    }
+
+    .status-resolved {
+        background: #ecfdf5;
+        color: #059669;
+    }
+
+    .status-form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .status-select {
+        min-width: 210px;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 7px;
+        background: #ffffff;
+        color: #374151;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .status-select:focus {
+        border-color: #2563eb;
+    }
+
+    .update-btn {
+        border: none;
+        background: #2563eb;
+        color: #ffffff;
+        padding: 10px 18px;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .update-btn:hover {
+        background: #1d4ed8;
+    }
+
+    /* =========================
+       RESPONSE FORM
+    ========================= */
+
+    .response-form {
+        width: 100%;
+    }
+
+    .response-textarea {
+        width: 100%;
+        min-height: 135px;
+        resize: vertical;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 13px 14px;
+        font-family: inherit;
+        font-size: 14px;
+        color: #111827;
+        outline: none;
+        margin-bottom: 14px;
+    }
+
+    .response-textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    }
+
+    .send-btn {
+        border: none;
+        background: #111827;
+        color: #ffffff;
+        padding: 11px 20px;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .send-btn:hover {
+        background: #1f2937;
+    }
+
+    /* =========================
+       FEEDBACK SECTION
+    ========================= */
+
+    .feedback-empty {
+        padding: 20px;
+        background: #f9fafb;
+        border: 1px dashed #d1d5db;
+        border-radius: 8px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .feedback-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .rating-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #6b7280;
+    }
+
+    .stars {
+        display: flex;
+        gap: 4px;
+    }
+
+    .star {
+        font-size: 25px;
+        line-height: 1;
+    }
+
+    .star-filled {
+        color: #f59e0b;
+    }
+
+    .star-empty {
+        color: #d1d5db;
+    }
+
+    .rating-number {
+        font-size: 14px;
+        font-weight: 700;
+        color: #374151;
+    }
+
+    .feedback-comment-box {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+    .feedback-comment-label {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 8px;
+    }
+
+    .feedback-comment {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #374151;
+        white-space: pre-line;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+    }
+
+    .feedback-date {
+        font-size: 12px;
+        color: #9ca3af;
+    }
+
+    /* =========================
+       CONVERSATION
+    ========================= */
+
+    .conversation {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .message {
+        border-radius: 9px;
+        padding: 16px 18px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .message-admin {
+        background: #eff6ff;
+        border-color: #dbeafe;
+    }
+
+    .message-student {
+        background: #f9fafb;
+    }
+
+    .message-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 9px;
+    }
+
+    .sender {
+        font-size: 13px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .sender-admin {
+        color: #2563eb;
+    }
+
+    .sender-student {
+        color: #374151;
+    }
+
+    .message-time {
+        font-size: 11px;
+        color: #9ca3af;
+    }
+
+    .message-text {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #374151;
+        white-space: pre-line;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+    }
+
+    .no-messages {
+        color: #9ca3af;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    /* =========================
+       FLASH MESSAGES
+    ========================= */
+
+    .flash-container {
+        margin-bottom: 22px;
+    }
+
+    .flash-message {
+        padding: 12px 15px;
+        border-radius: 7px;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .flash-success {
+        background: #ecfdf5;
+        color: #047857;
+        border: 1px solid #a7f3d0;
+    }
+
+    .flash-error {
+        background: #fef2f2;
+        color: #b91c1c;
+        border: 1px solid #fecaca;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+        .info-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .navbar {
+            padding: 0 22px;
+        }
+
+        .nav-right {
+            gap: 16px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .navbar {
+            height: auto;
+            min-height: 72px;
+            padding: 15px 18px;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .nav-right {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .admin-name {
+            display: none;
+        }
+
+        .container {
+            padding: 25px 16px 45px;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+        }
+
+        .card {
+            padding: 20px;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+            gap: 17px;
+        }
+
+        .status-row {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .status-form {
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .status-select {
+            width: 100%;
+        }
+
+        .update-btn {
+            width: 100%;
+        }
+
+        .rating-container {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .message-header {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        <span class="brand-highlight">24/7</span> Student Query Portal
+    </div>
+
+    <div class="nav-right">
+
+        <span class="admin-name">
+            Admin
+        </span>
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="{{ url_for('admin_notifications') }}"
+            class="nav-link notification-link"
+        >
+            Notifications
+
+            {% if unread_admin_notifications and unread_admin_notifications > 0 %}
+                <span class="notification-badge">
+                    {{ unread_admin_notifications }}
+                </span>
+            {% endif %}
+        </a>
+
+        <a
+            href="{{ url_for('admin_logout') }}"
+            class="logout-btn"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="container">
+
+    <a
+        href="{{ url_for('admin_dashboard') }}"
+        class="back-link"
+    >
+        Back to Dashboard
+    </a>
+
+
+    <div class="page-header">
+
+        <h1>
+            Complaint Details
+        </h1>
+
+        <p>
+            Review complaint information, communicate with the student,
+            update the complaint status, and review submitted feedback.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         FLASH MESSAGES
+    ========================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="flash-message
+                        {% if category == 'success' %}
+                            flash-success
+                        {% else %}
+                            flash-error
+                        {% endif %}"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         COMPLAINT INFORMATION
+    ========================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Complaint Information
+        </h2>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+                <div class="info-label">
+                    Ticket ID
+                </div>
+
+                <div class="info-value">
+                    {{ query.ticket_id }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Student
+                </div>
+
+                <div class="info-value">
+                    {{ student.name if student else 'N/A' }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Student ID
+                </div>
+
+                <div class="info-value">
+                    {{ student.user_id if student else 'N/A' }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Department
+                </div>
+
+                <div class="info-value">
+                    {{ department.name if department else 'N/A' }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Category
+                </div>
+
+                <div class="info-value">
+                    {{ query.category }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Priority
+                </div>
+
+                <div class="info-value">
+                    {{ query.priority }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Submitted On
+                </div>
+
+                <div class="info-value">
+                    {{ query.created_at.strftime('%d %b %Y, %I:%M %p') if query.created_at else 'N/A' }}
+                </div>
+            </div>
+
+
+            <div class="info-item">
+                <div class="info-label">
+                    Last Updated
+                </div>
+
+                <div class="info-value">
+                    {{ query.updated_at.strftime('%d %b %Y, %I:%M %p') if query.updated_at else 'N/A' }}
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         COMPLAINT DETAILS
+    ========================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Complaint Details
+        </h2>
+
+        <div class="subject">
+            {{ query.subject }}
+        </div>
+
+        <div class="description">
+            {{ query.description }}
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AUTOMATIC ASSIGNMENT
+    ========================= -->
+
+    <section class="card assignment-card">
+
+        <h2 class="card-title">
+            Assigned Administrator
+        </h2>
+
+        {% if assigned_admin %}
+
+            <div class="assigned-info">
+
+                <div>
+
+                    <span class="field-label">
+                        Administrator
+                    </span>
+
+                    <strong>
+                        {{ assigned_admin.name }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <p class="assignment-note">
+                This complaint was automatically assigned to the department administrator.
+            </p>
+
+        {% else %}
+
+            <div class="not-assigned">
+
+                <span>
+                    Assignment Information Unavailable
+                </span>
+
+                <p>
+                    The assigned administrator information is not available on this page.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================
+         COMPLAINT STATUS
+    ========================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Complaint Status
+        </h2>
+
+        <div class="status-row">
+
+            <div>
+
+                {% if query.status == 'Submitted' %}
+
+                    <span class="status-badge status-submitted">
+                        Submitted
+                    </span>
+
+                {% elif query.status == 'Assigned' %}
+
+                    <span class="status-badge status-assigned">
+                        Assigned
+                    </span>
+
+                {% elif query.status == 'Under Review' %}
+
+                    <span class="status-badge status-reviewing">
+                        Under Review
+                    </span>
+
+                {% elif query.status == 'In Progress' %}
+
+                    <span class="status-badge status-action">
+                        In Progress
+                    </span>
+
+                {% elif query.status == 'Resolved' %}
+
+                    <span class="status-badge status-resolved">
+                        Resolved
+                    </span>
+
+                {% else %}
+
+                    <span class="status-badge status-submitted">
+                        {{ query.status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <form
+                action="{{ url_for('admin_update_status', ticket_id=query.ticket_id) }}"
+                method="POST"
+                class="status-form"
+            >
+
+                <select
+                    name="status"
+                    class="status-select"
+                    required
+                >
+
+                    <option
+                        value="Submitted"
+                        {% if query.status == 'Submitted' %}
+                            selected
+                        {% endif %}
+                    >
+                        Submitted
+                    </option>
+
+
+                    <option
+                        value="Assigned"
+                        {% if query.status == 'Assigned' %}
+                            selected
+                        {% endif %}
+                    >
+                        Assigned
+                    </option>
+
+
+                    <option
+                        value="Under Review"
+                        {% if query.status == 'Under Review' %}
+                            selected
+                        {% endif %}
+                    >
+                        Under Review
+                    </option>
+
+
+                    <option
+                        value="In Progress"
+                        {% if query.status == 'In Progress' %}
+                            selected
+                        {% endif %}
+                    >
+                        In Progress
+                    </option>
+
+
+                    <option
+                        value="Resolved"
+                        {% if query.status == 'Resolved' %}
+                            selected
+                        {% endif %}
+                    >
+                        Resolved
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="update-btn"
+                >
+                    Update Status
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SEND RESPONSE
+    ========================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Send Response
+        </h2>
+
+        <form
+            action="{{ url_for('admin_reply_complaint', ticket_id=query.ticket_id) }}"
+            method="POST"
+            class="response-form"
+        >
+
+            <textarea
+                name="message"
+                class="response-textarea"
+                placeholder="Enter your response to the student..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="send-btn"
+            >
+                Send Response
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         STUDENT FEEDBACK
+    ========================= -->
+
+    {% if query.status == 'Resolved' %}
+
+        <section class="card">
+
+            <h2 class="card-title">
+                Student Feedback & Rating
+            </h2>
+
+
+            {% if feedback %}
+
+                <div class="feedback-content">
+
+                    <div class="rating-container">
+
+                        <span class="rating-label">
+                            Student Rating
+                        </span>
+
+
+                        <div class="stars">
+
+                            {% for i in range(1, 6) %}
+
+                                {% if i <= feedback.rating %}
+
+                                    <span class="star star-filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star star-empty">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <span class="rating-number">
+                            {{ feedback.rating }}/5
+                        </span>
+
+                    </div>
+
+
+                    {% if feedback.comment %}
+
+                        <div class="feedback-comment-box">
+
+                            <div class="feedback-comment-label">
+                                Student Comment
+                            </div>
+
+                            <div class="feedback-comment">
+                                {{ feedback.comment }}
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="feedback-comment-box">
+
+                            <div class="feedback-comment">
+                                No additional comment was provided by the student.
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="feedback-date">
+
+                        Feedback submitted on
+                        {{ feedback.created_at.strftime('%d %b %Y, %I:%M %p') if feedback.created_at else 'N/A' }}
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="feedback-empty">
+                    The complaint has been resolved, but the student has not submitted feedback yet.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- =========================
+         CONVERSATION HISTORY
+    ========================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Conversation History
+        </h2>
+
+
+        {% if messages %}
+
+            <div class="conversation">
+
+                {% for message in messages %}
+
+                    {# Determine the ACTUAL sender of this message #}
+
+                    {% set sender = message.sender %}
+
+                    {% if sender and sender.role == 'admin' %}
+
+                        <div class="message message-admin">
+
+                            <div class="message-header">
+
+                                <span class="sender sender-admin">
+                                    Administrator
+                                </span>
+
+                                <span class="message-time">
+                                    {{ message.created_at.strftime('%d %b %Y, %I:%M %p') if message.created_at else '' }}
+                                </span>
+
+                            </div>
+
+                            <div class="message-text">
+                                {{ message.message }}
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="message message-student">
+
+                            <div class="message-header">
+
+                                <span class="sender sender-student">
+                                    Student
+                                </span>
+
+                                <span class="message-time">
+                                    {{ message.created_at.strftime('%d %b %Y, %I:%M %p') if message.created_at else '' }}
+                                </span>
+
+                            </div>
+
+                            <div class="message-text">
+                                {{ message.message }}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="no-messages">
+                No conversation messages yet.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

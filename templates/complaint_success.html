@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Submitted | 24/7 Student Query Portal</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #f6f7fb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+        }
+
+
+        /* =========================
+           SUCCESS CARD
+           ========================= */
+
+        .success-card {
+
+            width: 100%;
+            max-width: 600px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 42px 45px;
+
+            text-align: center;
+
+            box-shadow:
+                0 8px 28px rgba(0, 0, 0, 0.06);
+        }
+
+
+        /* =========================
+           SUCCESS MARK
+           ========================= */
+
+        .success-circle {
+
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 24px;
+
+            border-radius: 50%;
+
+            background: #eef2ff;
+
+            border: 1px solid #dfe4ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #4f46e5;
+
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           HEADING
+           ========================= */
+
+        h1 {
+
+            color: #111827;
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================
+           MESSAGE
+           ========================= */
+
+        .message {
+
+            max-width: 470px;
+
+            margin: 0 auto 28px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           TICKET SECTION
+           ========================= */
+
+        .ticket-box {
+
+            background: #f8f7ff;
+
+            border: 1px solid #dfdcff;
+
+            border-radius: 10px;
+
+            padding: 21px;
+
+            margin-bottom: 27px;
+        }
+
+
+        .ticket-label {
+
+            color: #73778a;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.8px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .ticket-id {
+
+            color: #4f46e5;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================
+           ACTION BUTTONS
+           ========================= */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 170px;
+
+            height: 44px;
+
+            padding: 0 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .primary-button {
+
+            background: #4f46e5;
+
+            color: #ffffff;
+
+            border: 1px solid #4f46e5;
+        }
+
+
+        .primary-button:hover {
+
+            background: #4338ca;
+
+            border-color: #4338ca;
+
+            box-shadow:
+                0 5px 14px rgba(79, 70, 229, 0.18);
+        }
+
+
+        .secondary-button {
+
+            background: #ffffff;
+
+            color: #4f46e5;
+
+            border: 1px solid #d8d9e5;
+        }
+
+
+        .secondary-button:hover {
+
+            background: #f8f7ff;
+
+            border-color: #4f46e5;
+        }
+
+
+        /* =========================
+           TRACKING NOTE
+           ========================= */
+
+        .tracking-note {
+
+            margin-top: 25px;
+
+            padding-top: 19px;
+
+            border-top: 1px solid #eef0f4;
+
+            color: #8a8e9d;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 18px;
+            }
+
+
+            .success-card {
+
+                padding: 35px 23px;
+            }
+
+
+            .success-circle {
+
+                width: 65px;
+                height: 65px;
+
+                font-size: 30px;
+            }
+
+
+            h1 {
+
+                font-size: 23px;
+            }
+
+
+            .message {
+
+                font-size: 13px;
+            }
+
+
+            .ticket-id {
+
+                font-size: 21px;
+            }
+
+
+            .actions {
+
+                flex-direction: column;
+            }
+
+
+            .button {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="success-card">
+
+
+        <!-- SUCCESS -->
+
+        <div class="success-circle">
+
+            ✓
+
+        </div>
+
+
+        <!-- HEADING -->
+
+        <h1>
+
+            Complaint Submitted Successfully
+
+        </h1>
+
+
+        <!-- MESSAGE -->
+
+        <p class="message">
+
+            Your complaint has been successfully recorded
+            and forwarded to the concerned department.
+            You can track its progress using the Ticket ID
+            provided below.
+
+        </p>
+
+
+        <!-- TICKET -->
+
+        <div class="ticket-box">
+
+            <div class="ticket-label">
+
+                YOUR TICKET ID
+
+            </div>
+
+
+            <div class="ticket-id">
+
+                {{ query.ticket_id }}
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+
+            <a
+                href="{{ url_for('track_query', ticket_id=query.ticket_id) }}"
+                class="button primary-button">
+
+                Track Complaint
+
+            </a>
+
+
+            <a
+                href="{{ url_for('student_dashboard') }}"
+                class="button secondary-button">
+
+                Go to Dashboard
+
+            </a>
+
+
+        </div>
+
+
+        <!-- NOTE -->
+
+        <div class="tracking-note">
+
+            Keep your Ticket ID safe. You can use it to
+            check the current status of your complaint and
+            view responses from the administrator.
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
